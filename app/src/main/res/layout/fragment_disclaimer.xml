@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:weightSum="1"
+    android:scrollbars="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/text_view1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.1"
+                android:background="@color/white"
+                android:text="NOT TO BE REDISTRIBUTED WITHOUT PERMISSION OF THE AUTHOR"
+                android:textAlignment="center"
+                android:textColor="@color/red"
+                android:textSize="20sp"/>
+
+            <TextView
+                android:id="@+id/text_view2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_weight="0.1"
+                android:background="@color/white"
+                android:minLines="3"
+                android:text="*DISCLAIMER: SECURITIES TRADING INVOLVES SIGNIFICANT RISK OF FINANCIAL LOSS. \nTHIS SPREADSHEET UTILIZES AN AGGRESSIVE STRATEGY THAT MAY NOT BE SUITABLE FOR ALL INVESTORS OR MARKET CONDITIONS AND DOES NOT SUPERSEDE PERSONAL RISK ANALYSIS*"
+                android:textAlignment="center"
+                android:textColor="@color/red"
+                android:textSize="15sp"/>
+
+            <TextView
+                android:id="@+id/text_view3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_weight="0.1"
+                android:background="@color/white"
+                android:text="TO CONTINUE READING THIS SHEET, USER MUST ACCEPT RISK OF LOSS ASSOCIATED WITH USE OF THIS SPREADSHEET:"
+                android:textAlignment="center"
+                android:textColor="@color/red"
+                android:textSize="20sp"/>
+
+            <TextView
+                android:id="@+id/text_view4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_weight="0.1"
+                android:background="@color/white"
+                android:text="I, the user, understand and accept all risk of financial losses associated with the use of this spreadsheet"
+                android:textColor="@color/black"
+                android:textSize="20sp"/>
+
+            <CheckBox
+                android:id="@+id/checkBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_weight="0.1"
+                android:buttonTint="@color/black"
+                android:clickable="true"
+                android:onClick="onClick"
+                android:text="User Accepts Risk"
+                android:textAlignment="textStart"
+                android:textColor="@color/black"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

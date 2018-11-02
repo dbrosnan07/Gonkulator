@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Gonkulator</string>
+    <string name="shared_preferences_file_name">My_Preferences</string>
+    <string name="action_settings">Settings</string>
+</resources>
