@@ -4,7 +4,7 @@ package brosnetic.gonkulator.persistence;
  * Created by dbros on 10/20/2018.
  */
 
-enum Preferences
+public enum Preferences
 {
     FIRST_RUN_FLAG("FIRST_RUN_FLAG"),
     DISCLAIMER_FLAG("DISCLAIMER_FLAG");

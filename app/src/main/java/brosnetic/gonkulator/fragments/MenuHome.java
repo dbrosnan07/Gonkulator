@@ -42,8 +42,8 @@ public class MenuHome extends Fragment
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState)
     {
         view = inflater.inflate(R.layout.fragment_menu_home, container, false);
-        return view;
-        //return super.onCreateView(inflater, container, savedInstanceState);
+        //return view;
+        return super.onCreateView(inflater, container, savedInstanceState);
     }
 
 }

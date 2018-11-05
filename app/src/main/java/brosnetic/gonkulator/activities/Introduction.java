@@ -1,7 +1,10 @@
 package brosnetic.gonkulator.activities;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.compat.BuildConfig;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -13,14 +16,14 @@ import brosnetic.gonkulator.fragments.Disclaimer;
 import brosnetic.gonkulator.fragments.MenuHome;
 import brosnetic.gonkulator.fragments.Tutorial;
 import brosnetic.gonkulator.fragments.ViewPagerAdapter;
-import brosnetic.gonkulator.persistence.UserSharedPreferences;
+import brosnetic.gonkulator.persistence.Preferences;
 
 
 public class Introduction extends AppCompatActivity implements TabLayout.OnTabSelectedListener
 {
     //Attributes
     private String TAG;
-    private static UserSharedPreferences userSharedPreferences;
+    SharedPreferences sharedPreferences;
     private AppBarLayout appBarLayout;
     private TabLayout tabLayout;
     private ViewPager viewPager;
@@ -49,9 +52,6 @@ public class Introduction extends AppCompatActivity implements TabLayout.OnTabSe
 
         //Setup tabLayout with viewPager
         tabLayout.setupWithViewPager(viewPager);
-
-
-        tabLayout.addOnTabSelectedListener(this);
     }
 
 
@@ -64,7 +64,7 @@ public class Introduction extends AppCompatActivity implements TabLayout.OnTabSe
         Log.i(TAG, "onStart()");
 
         //Instantiate attributes
-        userSharedPreferences = UserSharedPreferences.getInstance();
+        tabLayout.addOnTabSelectedListener(this);
     }
 
     @Override
@@ -110,22 +110,20 @@ public class Introduction extends AppCompatActivity implements TabLayout.OnTabSe
     @Override
     public void onTabSelected(TabLayout.Tab tab)
     {
-        //If menu tab then start activity(MainMenu)     *first check for disclaimer flag
-
         Log.i(TAG, "onTabSelected()");
 
-        //Verify disclaimer accepted
-        if(!userSharedPreferences.getDisclaimerFlag())
-        {
-            viewPager.invalidate();
+        //Check sharedPreferences
+        sharedPreferences = getSharedPreferences(BuildConfig.APPLICATION_ID, Context.MODE_PRIVATE);
+        boolean disclaimerAccepted = sharedPreferences.getBoolean(Preferences.DISCLAIMER_FLAG.name(), false);
 
+        if(!disclaimerAccepted)
+        {
             //Reload disclaimer fragment
             finish();
             startActivity(getIntent());
             Toast.makeText(this, "You must accept disclaimer to use app", Toast.LENGTH_LONG).show();
             return;
         }
-
 
         //If tab Tutorial
         if(tab.getPosition() == 1)
@@ -142,23 +140,6 @@ public class Introduction extends AppCompatActivity implements TabLayout.OnTabSe
             finish();
 
         }
-
-//        if(tab.getTag().equals("Menu"))
-//        {
-//            //Start Activity(MainMenu)
-//            Intent intent = new Intent(this, MainMenu.class);
-//            startActivity(intent);
-//            finish();
-//        }
-
-
-//        if(tab.getPosition() == 2 && tab.getText().equals("Menu"))
-//        {
-//
-//        }
-
-
-
     }
 
     @Override

@@ -1,9 +1,8 @@
 package brosnetic.gonkulator.persistence;
 
-import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.support.compat.BuildConfig;
+
 
 /**
  * Created by dbros on 10/20/2018.
@@ -12,30 +11,38 @@ import android.support.compat.BuildConfig;
  */
 
 //Singleton for accessing user shared preferences(file storage/persistence)
-public class UserSharedPreferences extends Application
+public class UserSharedPreferences
 {
     //Attributes
     private static UserSharedPreferences instance = null;
     private final SharedPreferences sharedPreferences;
-    private final String packageName;
+    private final String fileName = "sharedPreferencesFile";
 
     //Constructor
-    UserSharedPreferences()
+    private UserSharedPreferences(Context context)
     {
-        //fileName = context.getResources().getString(R.string.shared_preferences_file_name);     //defined in res->values
-        packageName = BuildConfig.APPLICATION_ID;
-        sharedPreferences = getApplicationContext().getSharedPreferences(packageName, Context.MODE_PRIVATE);
+        sharedPreferences = context.getSharedPreferences(fileName, Context.MODE_PRIVATE);
     }
 
     //Get instance method
-    public static synchronized UserSharedPreferences getInstance()
+    public static synchronized UserSharedPreferences getInstance(Context context)
     {
         if(instance == null)
         {
-            instance = new UserSharedPreferences();
+            instance = new UserSharedPreferences(context.getApplicationContext());
         }
 
         return instance;
+    }
+
+    public static synchronized UserSharedPreferences getInstance()
+    {
+        if(instance != null)
+        {
+            return instance;
+        }
+
+        throw new IllegalArgumentException("Should use getInstance(Context) at least once before using this method.");
     }
 
     //Get methods
@@ -52,11 +59,19 @@ public class UserSharedPreferences extends Application
     //Set methods
     public void setFirstRunFlag(final boolean isFirst)
     {
+//        SharedPreferences.Editor editor = sharedPreferences.edit();
+//        editor.putBoolean(Preferences.FIRST_RUN_FLAG.name(), isFirst);
+//        editor.commit();
+
         sharedPreferences.edit().putBoolean(Preferences.FIRST_RUN_FLAG.name(), isFirst).apply();
     }
 
     public void setDisclaimerFlag(final boolean isDisclaimerAgreed)
     {
+//        SharedPreferences.Editor editor = sharedPreferences.edit();
+//        editor.putBoolean(Preferences.DISCLAIMER_FLAG.name(), isDisclaimerAgreed);
+//        editor.commit();
+
         sharedPreferences.edit().putBoolean(Preferences.DISCLAIMER_FLAG.name(), isDisclaimerAgreed).apply();
     }
 

@@ -2,8 +2,10 @@ package brosnetic.gonkulator.fragments;
 
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.compat.BuildConfig;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,7 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import brosnetic.gonkulator.R;
-import brosnetic.gonkulator.persistence.UserSharedPreferences;
+import brosnetic.gonkulator.persistence.Preferences;
 
 /**
  * Created by dbros on 10/29/2018.
@@ -22,8 +24,7 @@ public class Disclaimer extends Fragment implements View.OnClickListener
     //Attributes
     private View view;
     private CheckBox disclaimerCheckbox;
-    private Context context;
-    private static UserSharedPreferences userSharedPreferences;
+    SharedPreferences sharedPreferences;
 
     public Disclaimer()
     {
@@ -33,7 +34,6 @@ public class Disclaimer extends Fragment implements View.OnClickListener
     public void onAttach(Context context)
     {
         super.onAttach(context);
-        this.context = context;
     }
 
     @Override
@@ -50,54 +50,33 @@ public class Disclaimer extends Fragment implements View.OnClickListener
         view = inflater.inflate(R.layout.fragment_disclaimer, container, false);
         disclaimerCheckbox = (CheckBox)view.findViewById(R.id.checkBox);
         disclaimerCheckbox.setOnClickListener(this);
-
         return view;
-        //return super.onCreateView(inflater, container, savedInstanceState);
     }
 
     @Override
     public void onStart()
     {
         super.onStart();
-        userSharedPreferences = UserSharedPreferences.getInstance();
     }
 
     @Override
     public void onClick(View v)
     {
-        //userSharedPreferences = UserSharedPreferences.getInstance(getActivity());
+        sharedPreferences = this.getActivity().getSharedPreferences(BuildConfig.APPLICATION_ID, Context.MODE_PRIVATE);
 
         if(disclaimerCheckbox.isChecked())
         {
             Log.i("Disclaimer", "isChecked");
-            userSharedPreferences.setDisclaimerFlag(true);
+            sharedPreferences.edit().putBoolean(Preferences.DISCLAIMER_FLAG.name(), true).commit();
         }
         else
         {
             Log.i("Disclaimer", "isNotChecked");
-            userSharedPreferences.setDisclaimerFlag(false);
+            sharedPreferences.edit().putBoolean(Preferences.DISCLAIMER_FLAG.name(), false).commit();
         }
 
-        Log.i("Disclaimer => flag: ", String.valueOf(userSharedPreferences.getDisclaimerFlag()));
+        Log.i("Disclaimer(flag) ", String.valueOf(sharedPreferences.getBoolean(Preferences.DISCLAIMER_FLAG.name(), false)));
     }
-
-
-//    public void onCheckboxClicked(View view)
-//    {
-//        // Is the view now checked?
-//        boolean checked = ((CheckBox) view).isChecked();
-//
-//        if(checked)
-//        {
-//            userSharedPreferences.setDisclaimerFlag(true);
-//        }
-//        else
-//        {
-//            userSharedPreferences.setDisclaimerFlag(false);
-//        }
-//    }
-
-
 
 
 }
