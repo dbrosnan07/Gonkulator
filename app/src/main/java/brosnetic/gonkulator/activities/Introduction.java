@@ -116,7 +116,14 @@ public class Introduction extends AppCompatActivity implements TabLayout.OnTabSe
         sharedPreferences = getSharedPreferences(BuildConfig.APPLICATION_ID, Context.MODE_PRIVATE);
         boolean disclaimerAccepted = sharedPreferences.getBoolean(Preferences.DISCLAIMER_FLAG.name(), false);
 
-        if(!disclaimerAccepted)
+        //If disclaimer is accepted then set first run flag to false
+        if(disclaimerAccepted)
+        {
+            sharedPreferences.edit().putBoolean(Preferences.FIRST_RUN_FLAG.name(), false).commit();
+        }
+
+        //Else disclaimer not accepted and reload activity
+        else
         {
             //Reload disclaimer fragment
             finish();
@@ -125,13 +132,7 @@ public class Introduction extends AppCompatActivity implements TabLayout.OnTabSe
             return;
         }
 
-        //If tab Tutorial
-        if(tab.getPosition() == 1)
-        {
-
-        }
-
-        //If tab Main Menu
+        //If tab Main Menu then load activity
         if(tab.getPosition() == 2)
         {
             //Start Activity(MainMenu)
