@@ -53,13 +53,22 @@ public class MainMenu extends Activity
         boolean isFirstRun = sharedPreferences.getBoolean(Preferences.FIRST_RUN_FLAG.name(), true);
         Log.i(TAG, String.valueOf(isFirstRun));
 
-        if(isFirstRun)
-        {
-            //Start Activity(Introduction)
-            Intent intent = new Intent(this, Introduction.class);
-            startActivity(intent);
-            finish();
-        }
+        //FINAL WORKING IMPLEMENTATION  *commented out for testing purposes
+//        if(isFirstRun)
+//        {
+//            //Start Activity(Introduction)
+//            Intent intent = new Intent(this, Introduction.class);
+//            startActivity(intent);
+//            finish();
+//        }
+
+
+        //TESTING: USE IMPLEMENTATION ABOVE AND REMOVE
+        //Start Activity(Introduction)
+        Intent intent = new Intent(this, Introduction.class);
+        startActivity(intent);
+        finish();
+
     }
 
 
